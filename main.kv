@@ -1,0 +1,652 @@
+#:import toast kivymd.toast.toast
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: '#657895'
+    text_color: '#657895'
+    icon_color: '#657895'
+    
+    selected_color: "#0c6c4d"
+    focus_behavior: False
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: '#657895'
+    icon_color: '#657895'
+    focus_behavior: False
+    selected_color: "#4a4939"
+    
+
+
+MDScreen:
+	
+	MDTopAppBar:
+		id: toolbar
+    	title: "Controle financeiro"
+    	halign: 'center'
+        elevation: 3
+        pos_hint: {"top": 1}
+        md_bg_color: '#657895'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+                    
+  
+  
+    MDNavigationLayout:
+
+        MDScreenManager:
+        	id: screen_manager
+			PrimeiraTela:
+	        	name: 'janela1'
+	        	id: janela1
+	        	
+	        SegundaTela:
+	        	name: 'Adicionar Conta'
+	        	id: janela2
+	        		
+	        TerceiraTela:
+	        	name: 'Ver minhas contas'
+	        	id: janela3
+	        		
+	        QuartaTela:
+	        	name: 'Filtrar busca'
+	        	id:janela4
+	        	
+	        QuintaTela:
+	        	name: 'receita'
+	        	id: janela5
+	        	
+	        SextaTela:
+	        	name: 'pegar_dados'
+        		id: janela6
+        		
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+            
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Menu"
+                    halign: 'center'
+                    text: "Mais opções"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+                MDNavigationDrawerLabel:
+                    text: "Opções"
+                    text_color: '#657895'
+
+                DrawerClickableItem:
+                    icon: 'calendar-month-outline'
+                    #text_color: '#657895'
+                    text: "Calendário"
+                    on_release:
+                    	nav_drawer.set_state("close")
+                    	app.show_date_picker()
+
+                
+
+                
+                                                        
+<PrimeiraTela>:
+    Image:
+    	id: layout
+		source: 'images/logo1.png'
+		size_hint: '0.8', '0.8'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+		
+	MDLabel:
+		text: 'Controle financeiro v0.1'
+		halign: 'center'
+		font_style: 'H4'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+			    
+	MDRoundFlatIconButton:
+		text:'adicionar!'
+		font_style: 'H6'
+		icon: 'plus'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+		on_release:
+			root.manager.transition.direction = 'left'
+			root.manager.current = 'Adicionar Conta'
+			                
+	MDRoundFlatIconButton:
+		text:'Minhas contas'
+		icon: 'home'
+		font_style: 'H6'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		on_release:
+			root.manager.transition.direction = 'left'
+			root.manager.current = 'Filtrar busca'
+		
+	MDRoundFlatIconButton:
+		text: 'Adicionar receita'
+		icon: 'currency-usd'
+		font_style: 'H6'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+		on_release:
+			root.manager.transition.direction = 'left'
+			root.manager.current = 'receita'
+		
+		
+		
+<SegundaTela>:
+	Image:
+		source: 'images/logo1.png'
+		size_hint: '0.4', '0.4'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+		
+	
+	MDLabel:
+		id: titulo
+		text: 'Adicionar novo cadastro'
+		font_style: 'H4'
+		halign: 'center'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+		
+	MDLabel:
+	    id: msg_label
+	    text: ''
+	    font_style: 'H6'
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                	        
+	MDTextField:
+		id: input_conta
+		icon_left: 'pen'
+		hint_text: 'Conta'
+		max_text_length: 10
+		helper_text: 'Máximo 10 caracteres.'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+			        
+	MDTextField:
+		id: input_valor
+		input_type: 'number'
+		input_filter: 'float'
+		icon_left: 'currency-usd'
+		helper_text: 'Ex.: 0.00'
+		hint_text: 'Valor R$'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+			        
+	MDTextField:
+		id: input_data
+		helper_text: 'DD/MM/YYYY'
+		icon_left: 'calendar-month-outline'
+		hint_text: 'Vencimento'
+		mode: 'round'
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.45, 'center_y': 0.45}
+			        
+	MDIconButton:
+		id: botao_data
+		icon: 'calendar-month-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.45}
+		on_release: app.show_date_picker()
+			          
+	MDLabel:
+		id: titulo_categoria
+		text: 'Categoria:'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+		
+	MDLabel:
+		id: input_categoria
+		text: ''
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.7, 'center_y': 0.35}
+			        
+	MDIconButton:
+		id: botao_categoria_
+		icon: 'clipboard-search-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.35}
+		on_release: root.drpdown_() 
+	
+	MDTextField:
+		id: input_parcela
+		input_filter: 'int'
+		helper_text: 'Quantidade de parcelas'
+		icon_left: 'credit-card-plus-outline'
+		hint_text: 'Quantidade de parcelas.'
+		mode: 'round'
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.45, 'center_y': 0.3}
+	
+			                
+	MDRoundFlatIconButton:
+		text:'Adicionar'
+		font_style: 'H6'
+		icon: 'check-outline'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		on_release: app.cadastrar_dados()
+			        	
+	MDRoundFlatIconButton:
+		text:'Voltar'
+		font_style: 'H6'
+		icon: 'home'
+		size_hint: '0.5', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        on_release:
+        	app.remove_campos()
+        	root.manager.transition.direction = 'right'
+        	root.manager.current = 'janela1'
+        	
+        
+			     
+<TerceiraTela>:
+	
+	MDLabel:
+		id: debit_filter
+		text: ''
+		size_hint: '0.6', None
+		font_style: 'H5'
+		halign: 'right'
+		pos_hint: {'center_x': 0.65, 'center_y': 0.18}
+		
+	MDLabel:
+		id: date_filter
+		text: ''
+		size_hint: '0.6', None
+		font_style: 'H5'
+		halign: 'left'
+		pos_hint: {'center_x': 0.4, 'center_y': 0.18}
+		
+	Image:
+		source: 'images/money.png'
+		size_hint: '0.1', '0.1'
+		pos_hint: {'center_x':0.65, 'center_y':0.1}
+		halign: 'center'
+		
+	MDLabel:
+		id: label_valor
+		text: ''
+		pos_hint: {'center_x':0.85, 'center_y':0.1}
+		halign: 'center'
+		font_style: 'H5'
+		
+	Image:
+		source: 'images/receita.png'
+		size_hint: '0.1', '0.1'
+		pos_hint: {'center_x':0.1, 'center_y':0.1}
+		halign: 'center'
+		
+	MDLabel:
+		id: label_saldo
+		text: ''
+		pos_hint: {'center_x':0.3, 'center_y':0.1}
+		halign: 'center'
+		font_style: 'H5'
+		
+					    			    
+	MDRoundFlatIconButton:
+		text: 'Voltar'
+		font_size: '24'
+		icon: 'arrow-left-bold-outline'
+		size_hint: '0.05', '0.03'
+		pos_hint: {'center_x': 0.15, 'center_y': 0.035}
+		on_release:
+			app.remove_campos()
+			root.manager.transition.direction = 'right'
+			root.manager.current = 'janela1'
+			
+			
+	MDRoundFlatIconButton:
+		text: 'Apagar'
+		font_size: '24'
+		icon: 'trash-can-outline'
+		size_hint: '0.04', '0.03'
+		pos_hint: {'center_x': 0.4, 'center_y': 0.035}
+		on_release:
+			app.delete()
+			
+			
+			
+			
+			
+	MDRoundFlatIconButton:
+		text: 'Editar'
+		font_size: '24'
+		icon: 'file-document-edit-outline'
+		size_hint: '0.05', '0.03'
+		pos_hint: {'center_x': 0.65, 'center_y': 0.035}
+		on_release:
+			root.manager.current = 'pegar_dados'
+			
+
+			
+	MDRoundFlatIconButton:
+		text: 'PAGO'
+		font_size: '18'
+		icon: 'check-outline'
+		size_hint: '0.02', '0.03'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.035}
+		on_release: app.show_alert_dialog()	
+			
+		
+<QuartaTela>:
+	Image:
+		source: 'images/logo1.png'
+		size_hint: '0.4', '0.4'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+		
+		
+	MDLabel:
+		id: titulo_sit_ver
+		text: 'Status:'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+	
+	
+	MDLabel:
+		id: input_sit_ver
+		text: ''
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.7, 'center_y': 0.6}
+			        
+	MDIconButton:
+		id: botao_sit_
+		icon: 'clipboard-search-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.6}
+		on_release: root.sit_ver_()
+	
+		
+	MDLabel:
+		id: titulo
+		text: 'Ver minhas contas'
+		font_style: 'H4'
+		halign: 'center'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+		
+	MDLabel:
+		id: titulo_inicio
+		text: 'Início:'
+		size_hint: '0.7', None
+		pos_hint:  {'center_x': 0.45, 'center_y': 0.5}
+	
+	MDLabel:
+		id: input_data_inicio
+		text: ''
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.6, 'center_y': 0.5}
+			        
+	MDIconButton:
+		id: botao_data_periodo
+		icon: 'calendar-month-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.45}
+		on_release: app.show_date_picker1()
+		
+	MDLabel:
+		id: titulo_final
+		text: 'Final:'
+		size_hint: '0.7', None
+		pos_hint:  {'center_x': 0.45, 'center_y': 0.4}
+	
+	MDLabel:
+		id: input_data_final
+		text: ''
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.6, 'center_y': 0.4}
+			 		
+			          
+	MDLabel:
+		id: titulo_categoria_ver
+		text: 'Categoria:'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+	
+		
+				
+	MDLabel:
+		id: input_categoria_ver
+		text: ''
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+			        
+	MDIconButton:
+		id: botao_categoria_
+		icon: 'clipboard-search-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.3}
+		on_release: root.drpdown_ver_()
+
+	
+		
+	Spinner:
+		id: botao_mes
+		text: f'{date.today().month}'
+		background_color: '#70dcf7ff'
+		size_hint: '0.3', '0.04'
+		pos_hint: {'center_x': 0.35, 'center_y': 0.2}
+		values: ['01 Janeiro', '02 Fevereiro', '03 Março', '04 Abril', '05 Maio', '06 Junho', '07 Julho', '08 Agosto', '09 Setembro', '10 Outubro', '11 Novembro', '12 Dezembro']
+		on_text: root.select_year(botao_mes.text)
+		
+	Spinner:
+		id: botao_ano
+		text: f'{date.today().year}'
+		background_color: '#70dcf7ff'
+		size_hint: '0.3', '0.04'
+		pos_hint: {'center_x': 0.65, 'center_y': 0.2}
+		values: [f'{ano}' for ano in range(2020, 2051)]
+		on_text: root.select_year(botao_ano.text)
+
+
+	MDRoundFlatIconButton:
+		text: 'Ver'
+		font_style: 'H6'
+		icon: 'book-open-variant'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.13}
+		on_release:
+			root.manager.current = 'Ver minhas contas'
+			app.ver_tabela()
+	
+	
+	MDRoundFlatIconButton:
+		text:'Voltar'
+		font_style: 'H6'
+		icon: 'home'
+		size_hint: '0.5', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.04}
+        on_release:
+        	app.remove_campos()
+        	root.manager.transition.direction = 'right'
+        	root.manager.current = 'janela1'                                                          
+<QuintaTela>:
+	Image:
+		source: 'images/logo1.png'
+		size_hint: '0.4', '0.4'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+		
+	
+	MDLabel:
+		id: titulo
+		text: 'Adicionar nova receita'
+		font_style: 'H4'
+		halign: 'center'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+		
+	MDLabel:
+	    id: receita_label
+	    text: ''
+	    font_style: 'H6'
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.67}
+                	        
+	MDTextField:
+		id: input_receita
+		icon_left: 'pen'
+		hint_text: 'Conta'
+		max_text_length: 10
+		helper_text: 'Máximo 10 caracteres.'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+			        
+	MDTextField:
+		id: input_valor_receita
+		input_type: 'number'
+		input_filter: 'float'
+		icon_left: 'currency-usd'
+		helper_text: 'Ex.: 0.00'
+		hint_text: 'Valor R$'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+			        
+	MDTextField:
+		id: input_data_receita
+		helper_text: 'DD/MM/YYYY'
+		icon_left: 'calendar-month-outline'
+		hint_text: 'Data da receita'
+		mode: 'round'
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.45, 'center_y': 0.4}
+			        
+	MDIconButton:
+		id: botao_data_receita
+		icon: 'calendar-month-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.4}
+		on_release: app.show_date_picker()
+			          
+	MDLabel:
+		id: titulo_categoria_receita
+		text: 'Categoria:'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+		
+	MDLabel:
+		id: input_categoria_receita
+		text: ''
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+			        
+	MDIconButton:
+		id: botao_categoria_receita
+		icon: 'clipboard-search-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.3}
+		on_release: root.drpdown_receita() 
+	
+			                
+	MDRoundFlatIconButton:
+		text:'Adicionar'
+		font_style: 'H6'
+		icon: 'check-outline'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		on_release:
+			app.cadastrar_receita()
+			app.remove_campos()
+		
+			        	
+	MDRoundFlatIconButton:
+		text:'Voltar'
+		font_style: 'H6'
+		icon: 'home'
+		size_hint: '0.5', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        on_release:
+        	app.remove_campos()
+        	root.manager.transition.direction = 'right'
+        	root.manager.current = 'janela1'
+        		 
+        	
+<SextaTela>:		
+	
+	MDLabel:
+		id: id
+		text: ''
+		halign: 'center'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.78}
+		
+	MDLabel:
+	    id: date_label
+	    text: ''
+	    font_style: 'H6'
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+                	        
+	MDTextField:
+		id: input_conta
+		icon_left: 'pen'
+		hint_text: 'Conta'
+		max_text_length: 10
+		helper_text: 'Máximo 10 caracteres.'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+			        
+	MDTextField:
+		id: input_valor
+		input_type: 'number'
+		input_filter: 'float'
+		icon_left: 'currency-usd'
+		helper_text: 'Ex.: 0.00'
+		hint_text: 'Valor R$'
+		mode: 'round'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+			        
+	MDTextField:
+		id: input_data
+		helper_text: 'DD/MM/YYYY'
+		icon_left: 'calendar-month-outline'
+		hint_text: 'Vencimento'
+		mode: 'round'
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.45, 'center_y': 0.4}
+			        
+	MDIconButton:
+		id: botao_data
+		icon: 'calendar-month-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.4}
+		on_release: app.show_date_picker()
+			          
+	MDLabel:
+		id: titulo_categoria
+		text: 'Categoria:'
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+		
+	MDLabel:
+		id: input_categoria
+		text: ''
+		size_hint: '0.8', None
+		pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+			        
+	MDIconButton:
+		id: botao_categoria_
+		icon: 'clipboard-search-outline'
+		pos_hint: {'center_x': 0.88, 'center_y': 0.3}
+		on_release: root.drpdown_e_() 
+	
+			                
+	MDRoundFlatIconButton:
+		text:'Alterar'
+		font_style: 'H6'
+		icon: 'check-outline'
+		size_hint: '0.8', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		on_release:
+			app.atualizar_dados()
+			app.remove_campos()
+			root.manager.current = 'Ver minhas contas'
+			        	
+	MDRoundFlatIconButton:
+		text:'Voltar'
+		font_style: 'H6'
+		icon: 'home'
+		size_hint: '0.5', '0.07'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        on_release:
+        	root.manager.transition.direction = 'right'
+        	app.remove_campos()
+        	root.manager.current = 'Ver minhas contas'
+      
+       
+        
