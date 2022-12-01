@@ -4,7 +4,7 @@
 title = Controle Financeiro
 
 # (str) Package name
-package.name = com.controle.financeiro
+package.name = ControleFinanceiro
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.LuisFCaretta
@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd,pillow,sdl2_ttf
+requirements = python3,kivy,kivymd,pillow,sdl2_ttf, plyer
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -99,10 +99,10 @@ fullscreen = 0
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-#android.api = 31
+android.api = 32
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 21
+android.minapi = 27
 
 # (int) Android SDK version to use
 #android.sdk = 20
@@ -225,7 +225,6 @@ fullscreen = 0
 
 # (list) Java classes to add as activities to the manifest.
 #android.add_activities = com.example.ExampleActivity
-
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled
 #android.ouya.category = GAME

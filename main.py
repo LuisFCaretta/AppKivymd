@@ -4,6 +4,7 @@
 #pylint:disable=W0611
 #pylint:disable=W0611
 #pylint:disable=W0311
+from kivy import platform
 from kivy.properties import ObjectProperty
 from datetime import date, datetime, timedelta
 from calendar import monthrange
@@ -20,12 +21,15 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 from math import fsum
 from arquivos.Database import *
+from kivy.core.window import Window
+from plyer import orientation
+
+
+
 
 
 locale.setlocale(locale.LC_TIME, '')
 db = DataBaseControle
-
-		
 
 class PrimeiraTela(MDScreen):
 	pass
@@ -229,13 +233,23 @@ class MainApp(MDApp):
 	drpdown_ = ObjectProperty(None)
 	dialog = None
 	
+	
+	def on_start(self):
+	    from kivy.base import EventLoop
+	    EventLoop.window.bind(on_keyboard=self.hook_keyboard)
+	def hook_keyboard(self, window, key, *largs):
+	    if key == 27:
+        	self.show_alert_exit()
+        	return True
 	def build(self):
 		self.theme_cls.material_style = "M3"
 		self.theme_cls.theme_style = 'Dark'
 		self.theme_cls.primary_palette = 'BlueGray'
 		return Builder.load_file('main.kv')
 		
-	
+		
+		
+	    		
 							
 	def on_save(self, instance, value, date_range):
 		data = str(value)
@@ -436,6 +450,23 @@ class MainApp(MDApp):
 	
 	def fechar_alerta(self):
 		self.dialog.dismiss()
+		
+				
+	def show_alert_exit(self):
+		if not self.dialog:
+			self.dialog = MDDialog(
+				text = 'Deseja sair?',
+				buttons = [
+						MDFlatButton(
+							text = 'Cancel', text_color = self.theme_cls.primary_color, on_release = self.fechar_alerta_),
+						MDRectangleFlatButton(
+							text = 'Ok', text_color = self.theme_cls.primary_color, on_release = exit)
+						]
+			)
+		self.dialog.open()
+	
+	def fechar_alerta_(self):
+		self.dialog.dismiss()
 
 
 	
@@ -630,4 +661,5 @@ class MainApp(MDApp):
 			
 	
 if __name__ == '__main__':
+	orientation.set_sensor('portrait')
 	MainApp().run()
