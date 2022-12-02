@@ -140,32 +140,43 @@ MDScreen:
 	Image:
 		source: 'images/logo1.png'
 		size_hint: '0.4', '0.4'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.73}
 		
 	
 	MDLabel:
 		id: titulo
 		text: 'Adicionar novo cadastro'
-		font_style: 'H4'
+		font_style: 'H5'
 		halign: 'center'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.83}
 		
 	MDLabel:
 	    id: msg_label
 	    text: ''
 	    font_style: 'H6'
 	    halign: 'center'
-	    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-                	        
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.62}
+                
+     	
+	MDLabel:
+		id: label_conta_
+		text: 'Nome:  '
+		pos_hint: {'center_x': 0.6, 'center_y': 0.54}
+                	        	        	        
 	MDTextField:
 		id: input_conta
 		icon_left: 'pen'
-		hint_text: 'Conta'
-		max_text_length: 10
-		helper_text: 'Máximo 10 caracteres.'
+		hint_text: ''
+		max_text_length: 15
+		helper_text: 'Máximo 15 caracteres.'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+		size_hint: '0.55', None
+		pos_hint: {'center_x': 0.63, 'center_y': 0.54}
+		
+	MDLabel:
+		id: label_valor_
+		text: 'Valor R$:  '
+		pos_hint: {'center_x': 0.6, 'center_y': 0.47}
 			        
 	MDTextField:
 		id: input_valor
@@ -173,53 +184,64 @@ MDScreen:
 		input_filter: 'float'
 		icon_left: 'currency-usd'
 		helper_text: 'Ex.: 0.00'
-		hint_text: 'Valor R$'
+		hint_text: 'R$'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.55}
-			        
-	MDTextField:
-		id: input_data
-		helper_text: 'DD/MM/YYYY'
-		icon_left: 'calendar-month-outline'
-		hint_text: 'Vencimento'
-		mode: 'round'
+		size_hint: '0.3', None
+		pos_hint: {'center_x': 0.6, 'center_y': 0.47}
+		
+	MDLabel:
+		id: label_data
+		text: 'Vencimento: '
 		size_hint: '0.7', None
-		pos_hint: {'center_x': 0.45, 'center_y': 0.45}
+		pos_hint: {'center_x': 0.45, 'center_y': 0.4}
+		
+			        
+	MDLabel:
+		id: input_data
+		text: ''
+		size_hint: '0.7', None
+		pos_hint: {'center_x': 0.75, 'center_y': 0.4}
 			        
 	MDIconButton:
 		id: botao_data
 		icon: 'calendar-month-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.45}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.4}
 		on_release: app.show_date_picker()
 			          
 	MDLabel:
 		id: titulo_categoria
 		text: 'Categoria:'
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.35}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.32}
 		
 	MDLabel:
 		id: input_categoria
 		text: ''
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.7, 'center_y': 0.35}
+		pos_hint: {'center_x': 0.7, 'center_y': 0.32}
 			        
 	MDIconButton:
 		id: botao_categoria_
 		icon: 'clipboard-search-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.35}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.32}
 		on_release: root.drpdown_() 
 	
+	MDLabel:
+		id: title_parcelas
+		text: 'N⁰ de parcelas:'
+		pos_hint: {'center_x': 0.6, 'center_y': 0.25}
+		
 	MDTextField:
-		id: input_parcela
-		input_filter: 'int'
-		helper_text: 'Quantidade de parcelas'
-		icon_left: 'credit-card-plus-outline'
-		hint_text: 'Quantidade de parcelas.'
+		id: label_parcela
+		hint_text: ''
+		icon_left: 'card-check-outline'
 		mode: 'round'
-		size_hint: '0.7', None
-		pos_hint: {'center_x': 0.45, 'center_y': 0.3}
+		input_type:'number'
+		input_filter: 'int'
+		size_hint: '0.2', None
+		pos_hint: {'center_x': 0.57, 'center_y': 0.25}
+		
+	
 	
 			                
 	MDRoundFlatIconButton:
@@ -227,7 +249,7 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'check-outline'
 		size_hint: '0.8', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.15}
 		on_release: app.cadastrar_dados()
 			        	
 	MDRoundFlatIconButton:
@@ -235,7 +257,7 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'home'
 		size_hint: '0.5', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         on_release:
         	app.remove_campos()
         	root.manager.transition.direction = 'right'
@@ -363,7 +385,7 @@ MDScreen:
 	MDLabel:
 		id: titulo
 		text: 'Ver minhas contas'
-		font_style: 'H4'
+		font_style: 'H5'
 		halign: 'center'
 		pos_hint: {'center_x': 0.5, 'center_y': 0.85}
 		
@@ -464,32 +486,44 @@ MDScreen:
 	Image:
 		source: 'images/logo1.png'
 		size_hint: '0.4', '0.4'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.75}
 		
 	
 	MDLabel:
 		id: titulo
 		text: 'Adicionar nova receita'
-		font_style: 'H4'
+		font_style: 'H5'
 		halign: 'center'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.85}
 		
 	MDLabel:
 	    id: receita_label
 	    text: ''
 	    font_style: 'H6'
 	    halign: 'center'
-	    pos_hint: {'center_x': 0.5, 'center_y': 0.67}
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.63}
+	    
+	MDLabel:
+	    id: receita_title
+	    text: 'Nome: '
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.18, 'center_y': 0.55}
                 	        
 	MDTextField:
 		id: input_receita
 		icon_left: 'pen'
 		hint_text: 'Conta'
-		max_text_length: 10
-		helper_text: 'Máximo 10 caracteres.'
+		max_text_length: 15
+		helper_text: 'Máx. 15 caracteres.'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+		size_hint: '0.4', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+		
+	MDLabel:
+	    id: valor_title
+	    text: 'Valor R$: '
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.2, 'center_y': 0.45}
 			        
 	MDTextField:
 		id: input_valor_receita
@@ -497,42 +531,47 @@ MDScreen:
 		input_filter: 'float'
 		icon_left: 'currency-usd'
 		helper_text: 'Ex.: 0.00'
-		hint_text: 'Valor R$'
+		hint_text: 'R$'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+		size_hint: '0.4', None
+		pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+		
+	MDLabel:
+		id: input_data_title
+		text: 'Data: '
+		halign: 'center'
+		pos_hint: {'center_x': 0.18, 'center_y': 0.35}
 			        
-	MDTextField:
+	MDLabel:
 		id: input_data_receita
-		helper_text: 'DD/MM/YYYY'
-		icon_left: 'calendar-month-outline'
-		hint_text: 'Data da receita'
-		mode: 'round'
-		size_hint: '0.7', None
-		pos_hint: {'center_x': 0.45, 'center_y': 0.4}
+		text: ''
+		halign: 'center'
+		pos_hint: {'center_x': 0.4, 'center_y': 0.35}
 			        
 	MDIconButton:
 		id: botao_data_receita
 		icon: 'calendar-month-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.4}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.35}
 		on_release: app.show_date_picker()
 			          
 	MDLabel:
 		id: titulo_categoria_receita
 		text: 'Categoria:'
+		halign: 'center'
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+		pos_hint: {'center_x': 0.21, 'center_y': 0.25}
 		
 	MDLabel:
 		id: input_categoria_receita
 		text: ''
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+		halign: 'center'
+		pos_hint: {'center_x': 0.4, 'center_y': 0.25}
 			        
 	MDIconButton:
 		id: botao_categoria_receita
 		icon: 'clipboard-search-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.3}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.25}
 		on_release: root.drpdown_receita() 
 	
 			                
@@ -541,7 +580,7 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'check-outline'
 		size_hint: '0.8', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.15}
 		on_release:
 			app.cadastrar_receita()
 			app.remove_campos()
@@ -552,80 +591,108 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'home'
 		size_hint: '0.5', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         on_release:
         	app.remove_campos()
         	root.manager.transition.direction = 'right'
         	root.manager.current = 'janela1'
         		 
         	
-<SextaTela>:		
+<SextaTela>:
 	
+	Image:
+		source: 'images/logo1.png'
+		size_hint: '0.4', '0.4'
+		pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+		
+	MDLabel:
+	    id: date_label
+	    text: 'Editar'
+	    font_style: 'H5'
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+	
+	MDLabel:
+		id: id_label
+		text: 'id: '
+		halign: 'center'
+		pos_hint: {'center_x': 0.15, 'center_y': 0.6}
+		
 	MDLabel:
 		id: id
 		text: ''
 		halign: 'center'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.78}
+		pos_hint: {'center_x': 0.25, 'center_y': 0.6}
 		
+	    
 	MDLabel:
-	    id: date_label
-	    text: ''
-	    font_style: 'H6'
+	    id: conta_label
+	    text: 'nome: '
 	    halign: 'center'
-	    pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+	    pos_hint: {'center_x': 0.18, 'center_y': 0.55}
+	    
                 	        
 	MDTextField:
 		id: input_conta
 		icon_left: 'pen'
 		hint_text: 'Conta'
-		max_text_length: 10
-		helper_text: 'Máximo 10 caracteres.'
+		max_text_length: 15
+		helper_text: 'Máximo 15 caracteres.'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-			        
+		size_hint: '0.4', None
+		pos_hint: {'center_x': 0.48, 'center_y': 0.55}
+			       
+	MDLabel:
+	    id: valor_label
+	    text: 'Valor R$: '
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.2, 'center_y': 0.45}
+			          
 	MDTextField:
 		id: input_valor
 		input_type: 'number'
 		input_filter: 'float'
 		icon_left: 'currency-usd'
 		helper_text: 'Ex.: 0.00'
-		hint_text: 'Valor R$'
+		hint_text: 'R$'
 		mode: 'round'
-		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+		size_hint: '0.4', None
+		pos_hint: {'center_x': 0.55, 'center_y': 0.45}
+		
+		
+	MDLabel:
+	    id: data_label
+	    text: 'Vencimento: '
+	    halign: 'center'
+	    pos_hint: {'center_x': 0.23, 'center_y': 0.35}
 			        
-	MDTextField:
+	MDLabel:
 		id: input_data
-		helper_text: 'DD/MM/YYYY'
-		icon_left: 'calendar-month-outline'
-		hint_text: 'Vencimento'
-		mode: 'round'
-		size_hint: '0.7', None
-		pos_hint: {'center_x': 0.45, 'center_y': 0.4}
+		text: ''
+		pos_hint: {'center_x': 0.9, 'center_y': 0.35}
 			        
 	MDIconButton:
 		id: botao_data
 		icon: 'calendar-month-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.4}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.35}
 		on_release: app.show_date_picker()
 			          
 	MDLabel:
 		id: titulo_categoria
 		text: 'Categoria:'
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+		pos_hint: {'center_x': 0.52, 'center_y': 0.25}
 		
 	MDLabel:
 		id: input_categoria
 		text: ''
 		size_hint: '0.8', None
-		pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+		pos_hint: {'center_x': 0.75, 'center_y': 0.25}
 			        
 	MDIconButton:
 		id: botao_categoria_
 		icon: 'clipboard-search-outline'
-		pos_hint: {'center_x': 0.88, 'center_y': 0.3}
+		pos_hint: {'center_x': 0.88, 'center_y': 0.25}
 		on_release: root.drpdown_e_() 
 	
 			                
@@ -634,7 +701,7 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'check-outline'
 		size_hint: '0.8', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.15}
 		on_release:
 			app.atualizar_dados()
 			app.remove_campos()
@@ -645,7 +712,7 @@ MDScreen:
 		font_style: 'H6'
 		icon: 'home'
 		size_hint: '0.5', '0.07'
-		pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+		pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         on_release:
         	root.manager.transition.direction = 'right'
         	app.remove_campos()

@@ -35,6 +35,7 @@ class PrimeiraTela(MDScreen):
 	pass
 	
 class SegundaTela(MDScreen):
+	
 	def drpdown_(self):
 		self.menu_list = [
 					{"viewclass": "OneLineListItem",
@@ -232,6 +233,7 @@ class MainApp(MDApp):
 	data_table = ObjectProperty(None)
 	drpdown_ = ObjectProperty(None)
 	dialog = None
+	dialog_exit = None
 	
 	
 	def on_start(self):
@@ -241,6 +243,8 @@ class MainApp(MDApp):
 	    if key == 27:
         	self.show_alert_exit()
         	return True
+        	
+        	
 	def build(self):
 		self.theme_cls.material_style = "M3"
 		self.theme_cls.theme_style = 'Dark'
@@ -417,9 +421,10 @@ class MainApp(MDApp):
 				for row in db().filter_month(data_inicio, data_final):
 					data.append(row)
 					if row[5] == 'Em aberto':
-					 	debit += float(row[2].replace(',', '.'))
-				self.valores()
+					     debit += float(row[2].replace(',', '.'))
 				self.root.ids.janela3.ids.debit_filter.text = f'R${debit:.2f}'.replace('.', ',')
+					
+				self.valores()
 				return data
 				
 			
@@ -427,10 +432,7 @@ class MainApp(MDApp):
 				for row in db().filter_month(data_inicio, data_final):
 					if f'{status}' in row[5]:
 					    data.append(row)
-					    if row[5] == 'Em aberto':
-					    	debit += float(row[2].replace(',', '.'))
 				self.valores()
-				self.root.ids.janela3.ids.debit_filter.text = f'R${debit:.2f}'.replace('.', ',')
 				return data
 
 
@@ -453,8 +455,8 @@ class MainApp(MDApp):
 		
 				
 	def show_alert_exit(self):
-		if not self.dialog:
-			self.dialog = MDDialog(
+		if not self.dialog_exit:
+			self.dialog_exit = MDDialog(
 				text = 'Deseja sair?',
 				buttons = [
 						MDFlatButton(
@@ -463,11 +465,12 @@ class MainApp(MDApp):
 							text = 'Ok', text_color = self.theme_cls.primary_color, on_release = exit)
 						]
 			)
-		self.dialog.open()
-	
-	def fechar_alerta_(self):
-		self.dialog.dismiss()
+		self.dialog_exit.open()
 
+		
+	def fechar_alerta_(self, obj):
+		self.dialog.dismiss()
+		
 
 	
 
@@ -495,6 +498,7 @@ class MainApp(MDApp):
 		
 		
 		self.data_table.row_data = self.get_all_data()
+		self.valores()
 
 		
 		self.root.ids.janela3.add_widget(self.data_table)
@@ -526,32 +530,33 @@ class MainApp(MDApp):
 				
 				dat = datetime.strptime(str(self.root.ids.janela2.ids.input_data.text), "%d/%m/%Y").date()
 				data = dat.strftime("%d/%m/%Y")
-				
-				
 				categoria = self.root.ids.janela2.ids.input_categoria.text
 				Status = 'Em aberto'
 				if categoria == 'Á vista':
 				    Status = 'Pago'
-				    
-				if categoria == 'Cartão':
-					quant = int(self.root.ids.janela2.ids.input_parcela.text)
-					cur_date = dat
-					conta = f'{self.root.ids.janela2.ids.input_conta.text} 1/{quant}'
+				
+				if categoria != 'Cartão':
 					db().insert(conta, valorFormatado, dat, categoria, Status)
-					for p in range(2, quant+1):
-						conta = f'{self.root.ids.janela2.ids.input_conta.text} {p}/{quant}'
-						cur_date += timedelta(days=30)
-						
-						db().insert(conta, valorFormatado, cur_date, categoria, Status)
 					self.remove_campos()
 					self.root.ids.janela2.ids.msg_label.text = 'conta adicionada com sucesso!'
 					return
-					
-				db().insert(conta, valorFormatado, dat, categoria, Status)
-				self.remove_campos()
-				self.root.ids.janela2.ids.msg_label.text = 'conta adicionada com sucesso!'
-				return
-				
+				if categoria == 'Cartão':
+					quant = self.root.ids.janela2.ids.label_parcela.text
+					cur_date = dat
+					if quant == '':
+						self.root.ids.janela2.ids.msg_label.text = 'Obrigatório definir uma quantidade.'
+					else:
+						conta = f'{self.root.ids.janela2.ids.input_conta.text} 1/{quant}'
+						db().insert(conta, valorFormatado, dat, categoria, Status)
+						quant= int(self.root.ids.janela2.ids.label_parcela.text)
+						for p in range(2, quant+1):
+							conta = f'{self.root.ids.janela2.ids.input_conta.text} {p}/{quant}'
+							cur_date += timedelta(days=31)
+							
+							db().insert(conta, valorFormatado, cur_date, categoria, Status)
+						self.remove_campos()
+						self.root.ids.janela2.ids.msg_label.text = 'conta adicionada com sucesso!'
+						return
 				
 				
 				
@@ -602,11 +607,9 @@ class MainApp(MDApp):
 			conta = self.root.ids.janela6.ids.input_conta.text
 			valorf = float(self.root.ids.janela6.ids.input_valor.text.replace(',', '.'))
 			valor = f'{valorf:.2f}'.replace('.', ',')
-			
-			
 			dat = datetime.strptime(self.root.ids.janela6.ids.input_data.text, "%Y-%m-%d").date()
 			data = dat.strftime('%d/%m/%Y')
-			
+				
 			categ = self.root.ids.janela6.ids.input_categoria.text
 			if categ == 'Receita':
 				status = 'Receita'
@@ -614,9 +617,12 @@ class MainApp(MDApp):
 				status = 'Pago'
 			else:
 				status = ' Em aberto'
-			db().update(conta, valor, dat, categ, status, id)
-			self.data_table.row_data = self.get_all_data()
-			self.remove_campos()
+				
+					
+					
+				db().update(conta, valor, dat, categ, status, id)
+				self.data_table.row_data = self.get_all_data()
+				self.remove_campos()
 			
 			
 	def delete(self):
@@ -632,8 +638,8 @@ class MainApp(MDApp):
 		self.root.ids.janela2.ids.input_conta.text = ''
 		self.root.ids.janela2.ids.input_valor.text = ''
 		self.root.ids.janela2.ids.input_data.text = ''
-		self.root.ids.janela2.ids.input_parcela.text = ''
-		self.root.ids.janela3.ids.label_valor.text = ''
+		self.root.ids.janela2.ids.label_parcela.text = ''
+		
 		self.root.ids.janela4.ids.input_categoria_ver.text = ''
 		self.root.ids.janela4.ids.input_data_inicio.text = ''
 		self.root.ids.janela4.ids.input_data_final.text = ''
