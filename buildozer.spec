@@ -99,7 +99,7 @@ fullscreen = 0
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 32
+android.api = 33
 
 # (int) Minimum API your APK / AAB will support.
 android.minapi = 27
@@ -276,7 +276,7 @@ android.add_libs_x86 = libs/android-x86/*.so
 
 # (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
 # In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-android.archs = arm64-v8a, armeabi-v7a, x86
+android.archs = arm64-v8a, armeabi-v7a, x86, x86_64
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
