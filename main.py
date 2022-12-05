@@ -469,7 +469,7 @@ class MainApp(MDApp):
 
 		
 	def fechar_alerta_(self, obj):
-		self.dialog.dismiss()
+		self.dialog_exit.dismiss()
 		
 
 	
