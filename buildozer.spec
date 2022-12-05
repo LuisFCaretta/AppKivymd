@@ -37,7 +37,10 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd,pillow,sdl2_ttf, plyer, sqlite3
+requirements = python3,kivy,kivymd,pillow,sdl2_ttf, plyer, sqlite3, android,astroid,audiostream,Babel,certifi,cffi,
+charset-normalizer,
+cmake,cycler,darkdetect,distro,docutils,idna,isort,jedi,Kivy-Garden,kiwisolver,lazy-object-proxy,matplotlib,mccabe,numpy,opencv-python,packaging,parso,pkgconfig,platformdirs,plotly,
+pybind11,pycparser,pygame,Pygments,pyjnius,pylint,pyparsing,PySDL2,python-dateutil,pytz,requests,scikit-build,six,tenacity,toml,typed-ast,typing-extensions,urllib3,wrapt
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -105,7 +108,7 @@ android.api = 33
 android.minapi = 27
 
 # (int) Android SDK version to use
-android.sdk = 31
+android.sdk = 32
 
 # (str) Android NDK version to use
 #android.ndk = 23b
